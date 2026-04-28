@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  customer
+  admin
+}
+
+enum OrderStatus {
+  created
+  confirmed
+  inProduction
+  shipped
+  delivered
+  cancelled
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  failed
+}
+
+enum PaymentMode {
+  full
+  advance
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String?  @unique
+  phone     String?
+  name      String?
+  role      UserRole @default(customer)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orders Order[]
+}
+
+model Product {
+  id            String   @id @default(cuid())
+  name          String
+  basePricePaise Int
+  images        String[]
+  frameTypes    String[]
+  sizes         String[]
+  glassTypes    String[]
+  active        Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  orderItems OrderItem[]
+}
+
+model Order {
+  id              String        @id @default(cuid())
+  userId          String?
+  user            User?         @relation(fields: [userId], references: [id])
+
+  status          OrderStatus   @default(created)
+  paymentStatus   PaymentStatus @default(pending)
+  paymentMode     PaymentMode   @default(full)
+  advancePercent  Int           @default(30)
+
+  subtotalPaise   Int
+  deliveryFeePaise Int
+  totalPaise      Int
+  payableNowPaise Int
+
+  fullName        String
+  phone           String
+  addressLine1    String
+  city            String
+  pincode         String
+
+  razorpayOrderId  String?
+  razorpayPaymentId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items   OrderItem[]
+  uploads Upload[]
+}
+
+model OrderItem {
+  id             String  @id @default(cuid())
+  orderId        String
+  order          Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId      String
+  product        Product @relation(fields: [productId], references: [id])
+
+  qty            Int
+  customization  Json
+  unitPricePaise Int
+  lineTotalPaise Int
+}
+
+model Upload {
+  id         String   @id @default(cuid())
+  orderId    String?
+  order      Order?   @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  storageKey String
+  mime       String
+  size       Int
+  createdAt  DateTime @default(now())
+}
+

@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* 🔥 BASE */
+:root {
+color-scheme: light;
+}
+
+html,
+body {
+height: 100%;
+}
+
+body {
+background: #f6f7f9;
+color: #18181b;
+}
+
+/* 🔥 COMPONENTS */
+.card {
+background: white;
+border-radius: 16px;
+border: 1px solid #e4e4e7;
+box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+transition: 0.2s ease;
+}
+
+.card:hover {
+transform: translateY(-2px);
+box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.btn-primary {
+background: #18181b;
+color: white;
+border-radius: 9999px;
+padding: 12px 20px;
+font-weight: 600;
+}
+
+.btn-primary:hover {
+background: #27272a;
+}
+
+.input {
+width: 100%;
+border-radius: 16px;
+border: 1px solid #e4e4e7;
+padding: 12px;
+}
+
+/* 🔥 CONTAINER */
+.container-px {
+max-width: 1152px;
+margin: auto;
+padding: 0 16px;
+}
