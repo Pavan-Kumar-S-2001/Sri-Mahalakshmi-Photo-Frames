@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
-      '@framecraft/shared': resolve(__dirname, '../../packages/shared/src'),
+      '@framecraft/shared.js': resolve(__dirname, '../../packages/shared/src'),
     },
   },
 })
