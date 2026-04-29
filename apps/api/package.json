@@ -5,9 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
   "dev": "tsx watch src/index.ts",
-
   "build": "npm run build:shared && tsc -p tsconfig.json",
-
   "build:shared": "npm --prefix ../../packages/shared run build",
 
   "start": "node dist/index.js",
