@@ -11,10 +11,9 @@ export function AppLayout() {
         <Outlet />
       </main>
       <Footer />
-      <WhatsappFloat
-        phoneE164={import.meta.env.VITE_WHATSAPP_NUMBER ?? '919999999999'}
-        message="Hi, I am interested in your photo frame design"
-      />
+      <WhatsappFloat 
+  phoneE164={import.meta.env.VITE_WHATSAPP_NUMBER ?? '916364218486'}
+/>
     </div>
   )
 }
