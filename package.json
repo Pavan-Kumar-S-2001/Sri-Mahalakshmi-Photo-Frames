@@ -11,8 +11,7 @@
   "dev:api": "npm -w apps/api run dev",
 
   "build": "npm run build:shared && npm run build:api && npm run build:web",
-
-  "build:shared": "npm -w packages/shared exec tsc",
+  "build:shared": "npm -w packages/shared run build",
   "build:web": "npm -w apps/web run build",
   "build:api": "npm -w apps/api run build",
 

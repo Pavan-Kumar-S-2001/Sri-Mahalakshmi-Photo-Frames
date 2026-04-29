@@ -1,13 +1,18 @@
 {
   "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "outDir": "dist",
     "rootDir": "src",
     "declaration": true,
-    "module": "ESNext",
-    "target": "ES2022",
-    "moduleResolution": "Bundler",
+    "sourceMap": true,
     "strict": true,
-    "ignoreDeprecations": "6.0"
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "ignoreDeprecations": "6.0",
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }

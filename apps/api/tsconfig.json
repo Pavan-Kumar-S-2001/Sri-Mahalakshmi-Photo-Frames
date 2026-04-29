@@ -19,7 +19,7 @@
 
     "baseUrl": ".",
     "paths": {
-      "@framecraft/shared": ["../../packages/shared/dist"]
+      "@framecraft/shared": ["../../packages/shared/src"]
     }
   },
   "include": ["src"]
