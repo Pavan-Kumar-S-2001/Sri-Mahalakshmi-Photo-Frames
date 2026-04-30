@@ -18,7 +18,7 @@ export function CartPage() {
       </Helmet>
 
       <div className="container-px py-10">
-        <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="text-3xl bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 bg-clip-text text-transparent font-bold">
           Cart
         </h1>
         <p className="mt-1 text-sm text-zinc-600">
@@ -28,8 +28,8 @@ export function CartPage() {
         <div className="mt-6 grid gap-6 lg:grid-cols-12">
           <section className="lg:col-span-8">
             {items.length === 0 ? (
-              <div className="rounded-3xl border border-zinc-200 bg-white p-10 text-center">
-                <div className="text-sm font-semibold text-zinc-900">
+              <div className="rounded-3xl border border-zinc-200 bg-white p-10 text-center shadow-md">
+                <div className="text-sm font-semibold text-zinc-950">
                   Your cart is empty
                 </div>
                 <div className="mt-2 text-sm text-zinc-600">
@@ -37,7 +37,7 @@ export function CartPage() {
                 </div>
                 <Link
                   to="/shop"
-                  className="mt-6 inline-flex items-center justify-center rounded-full bg-zinc-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800"
+                  className="mt-6 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 text-white px-5 py-3 text-sm font-semibold text-white transition hover:bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 shadow-lg hover:scale-105 transition"
                 >
                   Go to shop
                 </Link>
@@ -67,7 +67,7 @@ export function CartPage() {
                         <div className="min-w-0 flex-1">
                           <div className="flex items-start justify-between gap-4">
                             <div className="min-w-0">
-                              <div className="truncate text-sm font-semibold text-zinc-900">
+                              <div className="truncate text-sm font-semibold text-zinc-950">
                                 {it.productName}
                               </div>
                               <div className="mt-1 text-xs text-zinc-600">
@@ -76,7 +76,7 @@ export function CartPage() {
                                 {it.customization.glass}
                               </div>
                             </div>
-                            <div className="text-sm font-semibold text-zinc-900">
+                            <div className="text-sm font-semibold text-zinc-950">
                               {formatINR(breakdown.subtotalPaise * it.qty)}
                             </div>
                           </div>
@@ -85,17 +85,17 @@ export function CartPage() {
                             <div className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-2 py-1">
                               <button
                                 type="button"
-                                className="rounded-full px-2 py-1 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
+                                className="rounded-full px-2 py-1 text-sm font-semibold text-zinc-950 hover:bg-zinc-50"
                                 onClick={() => setQty(it.id, it.qty - 1)}
                               >
                                 −
                               </button>
-                              <div className="min-w-8 text-center text-sm font-semibold text-zinc-900">
+                              <div className="min-w-8 text-center text-sm font-semibold text-zinc-950">
                                 {it.qty}
                               </div>
                               <button
                                 type="button"
-                                className="rounded-full px-2 py-1 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
+                                className="rounded-full px-2 py-1 text-sm font-semibold text-zinc-950 hover:bg-zinc-50"
                                 onClick={() => setQty(it.id, it.qty + 1)}
                               >
                                 +
@@ -104,7 +104,7 @@ export function CartPage() {
 
                             <button
                               type="button"
-                              className="text-sm font-semibold text-zinc-600 hover:text-zinc-900"
+                              className="text-sm font-semibold text-zinc-600 hover:text-zinc-950"
                               onClick={() => removeItem(it.id)}
                             >
                               Remove
@@ -119,9 +119,9 @@ export function CartPage() {
             )}
           </section>
 
-          <aside className="lg:col-span-4">
-            <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
-              <div className="text-sm font-semibold text-zinc-900">
+          <aside className="lg:col-span-4 lg:sticky lg:top-24 h-fit">
+            <div className="rounded-3xl border border-zinc-200 bg-white p-10 text-centre shadow-sm">
+              <div className="text-sm font-semibold text-zinc-950">
                 Price summary
               </div>
               <div className="mt-4 space-y-2 text-sm">
@@ -135,7 +135,7 @@ export function CartPage() {
               </div>
               <Link
                 to="/checkout"
-                className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-zinc-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800"
+                className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-yellow-500 to-amber-600 shadow-lg hover:scale-105 transition"
               >
                 Checkout
               </Link>
@@ -158,10 +158,10 @@ function Row({
 }) {
   return (
     <div className="flex items-center justify-between">
-      <div className={bold ? 'font-semibold text-zinc-900' : 'text-zinc-600'}>
+      <div className={bold ? 'font-semibold text-zinc-950' : 'text-zinc-600'}>
         {label}
       </div>
-      <div className={bold ? 'font-semibold text-zinc-900' : 'text-zinc-900'}>
+      <div className={bold ? 'font-semibold text-zinc-950' : 'text-zinc-950'}>
         {value}
       </div>
     </div>

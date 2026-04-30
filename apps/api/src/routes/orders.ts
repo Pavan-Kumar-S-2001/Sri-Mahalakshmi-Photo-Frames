@@ -101,7 +101,7 @@ ordersRouter.post('/', async (req, res) => {
   res.json({ order })
 })
 
-function requireAdmin(req: any, res: any, next: any) {
+ordersRouter.use((req: any, res: any, next: any) => {
   const token = req.cookies?.auth
   if (!token) return res.status(401).json({ error: 'UNAUTHORIZED' })
 
@@ -112,9 +112,9 @@ function requireAdmin(req: any, res: any, next: any) {
   } catch {
     return res.status(401).json({ error: 'INVALID_TOKEN' })
   }
-}
+})
 
-ordersRouter.get('/', requireAdmin, async (_req, res) => {
+ordersRouter.get('/', async (_req, res) => {
   const orders = await prisma.order.findMany({
     include: { items: true },
     orderBy: { createdAt: 'desc' },
@@ -133,6 +133,22 @@ ordersRouter.get('/:id', async (req, res) => {
   if (!order) {
     return res.status(404).json({ error: 'NOT_FOUND' })
   }
+  // 🔥 UPDATE ORDER STATUS
+ordersRouter.patch('/:id', async (req, res) => {
+  const { id } = req.params
+  const { status } = req.body
+
+  try {
+    const order = await prisma.order.update({
+      where: { id },
+      data: { status },
+    })
+
+    res.json({ order })
+  } catch (err) {
+    res.status(400).json({ error: 'UPDATE_FAILED' })
+  }
+})
 
   res.json({ order })
 })

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 export function Footer() {
   return (
-    <footer className="border-t border-zinc-200 bg-white">
+    <footer className="border-t border-zinc-200 bg-zinc-50">
       <div className="container-px py-10">
 
         {/* TOP SECTION */}
@@ -10,7 +10,7 @@ export function Footer() {
 
           {/* LEFT SIDE */}
           <div>
-            <div className="text-sm font-semibold text-zinc-900">
+            <div className="text-base font-bold text-zinc-950">
               Sri Mahalakshmi Photo Frames
             </div>
 
@@ -27,13 +27,13 @@ export function Footer() {
 
           {/* RIGHT SIDE LINKS */}
           <div className="flex flex-wrap gap-4 text-sm">
-            <Link className="text-zinc-600 hover:text-zinc-900" to="/shop">
+            <Link className="text-zinc-600 hover:text-zinc-950" to="/shop">
               Shop
             </Link>
-            <Link className="text-zinc-600 hover:text-zinc-900" to="/contact">
+            <Link className="text-zinc-600 hover:text-zinc-950" to="/contact">
               Contact
             </Link>
-            <Link className="text-zinc-600 hover:text-zinc-900" to="/admin">
+            <Link className="text-zinc-600 hover:text-zinc-950" to="/admin">
               Admin
             </Link>
           </div>

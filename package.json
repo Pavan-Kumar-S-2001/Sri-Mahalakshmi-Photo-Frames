@@ -4,19 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "test": "echo \"Error: no test specified\" && exit 1",
-
-  "dev": "concurrently -n web,api -c cyan,magenta \"npm:dev:web\" \"npm:dev:api\"",
-  "dev:web": "npm -w apps/web run dev",
-  "dev:api": "npm -w apps/api run dev",
-
-  "build": "npm run build:shared && npm run build:api && npm run build:web",
-  "build:shared": "npm -w packages/shared run build",
-  "build:web": "npm -w apps/web run build",
-  "build:api": "npm -w apps/api run build",
-
-  "start": "npm -w apps/api run start"
-},
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently -n web,api -c cyan,magenta \"npm:dev:web\" \"npm:dev:api\"",
+    "dev:web": "npm -w apps/web run dev",
+    "dev:api": "npm -w apps/api run dev",
+    "build": "npm run build:shared && npm run build:api && npm run build:web",
+    "build:shared": "npm -w packages/shared run build",
+    "build:web": "npm -w apps/web run build",
+    "build:api": "npm -w apps/api run build",
+    "start": "npm -w apps/api run start"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

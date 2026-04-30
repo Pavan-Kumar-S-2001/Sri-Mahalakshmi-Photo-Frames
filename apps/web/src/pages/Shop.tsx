@@ -29,8 +29,8 @@ export function ShopPage() {
       <div className="container-px py-10">
         <div className="flex flex-col gap-8 lg:flex-row">
           <aside className="w-full lg:w-72">
-            <div className="rounded-2xl border border-zinc-200 bg-white p-5">
-              <div className="text-sm font-semibold text-zinc-900">Filters</div>
+            <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-lg sticky top-24">
+              <div className="text-sm font-semibold text-zinc-950">Filters</div>
               <div className="mt-5 space-y-5">
                 <div>
                   <div className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
@@ -48,7 +48,7 @@ export function ShopPage() {
                         className={[
                           'rounded-full border px-3 py-2 text-xs font-semibold transition',
                           t === type
-                            ? 'border-zinc-900 bg-zinc-900 text-white'
+                            ? 'border-zinc-900 bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 text-white'
                             : 'border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50',
                         ].join(' ')}
                       >
@@ -74,7 +74,7 @@ export function ShopPage() {
                       setParams(params, { replace: true })
                     }}
                   />
-                  <div className="mt-2 text-sm font-semibold text-zinc-900">
+                  <div className="mt-2 text-sm font-semibold text-zinc-950">
                     Up to ₹{maxPriceRupees}
                   </div>
                 </div>
@@ -83,18 +83,22 @@ export function ShopPage() {
           </aside>
 
           <section className="flex-1">
-            <div className="flex items-end justify-between gap-4">
-              <div>
-                <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
-                  Shop frames
-                </h1>
-                <p className="mt-1 text-sm text-zinc-600">
-                  Choose a style, then customize with your photo.
-                </p>
-              </div>
-            </div>
+            <div className="flex items-center justify-between gap-4 border-b pb-4">
+  <div>
+    <h1 className="text-3xl bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 bg-clip-text text-transparent font-bold">
+      Shop Frames
+    </h1>
+    <p className="mt-1 text-sm text-zinc-600">
+      Choose a style, then customize your frame.
+    </p>
+  </div>
 
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  <div className="text-sm text-zinc-500">
+    {items.length} products
+  </div>
+</div>
+
+            <div className="mt-2 grid grid-cols-3 gap-2">
               {items.map((p) => (
                 <ProductCard
                   key={p.id}
@@ -109,6 +113,11 @@ export function ShopPage() {
               Showing {items.length} product(s). Prices start at{' '}
               {items[0] ? formatINR(items[0].basePricePaise) : '—'}.
             </p>
+            {items.length === 0 && (
+  <div className="mt-10 text-center text-zinc-500">
+    No products found
+  </div>
+)}
           </section>
         </div>
       </div>

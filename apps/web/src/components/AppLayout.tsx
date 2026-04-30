@@ -5,7 +5,7 @@ import { WhatsappFloat } from './WhatsappFloat'
 
 export function AppLayout() {
   return (
-    <div className="min-h-dvh bg-white">
+    <div className="min-h-dvh bg-gradient-to-b from-white via-yellow-50 to-white">
       <Navbar />
       <main className="min-h-[calc(100dvh-4rem)]">
         <Outlet />

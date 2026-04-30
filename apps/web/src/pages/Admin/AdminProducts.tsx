@@ -47,7 +47,7 @@ export function AdminProductsPage() {
   return (
     <div className="space-y-6">
       <div className="rounded-3xl border border-zinc-200 bg-white p-6">
-        <h1 className="text-xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="text-xl font-semibold tracking-tight text-zinc-950">
           Products
         </h1>
         <p className="mt-2 text-sm text-zinc-600">
@@ -56,14 +56,14 @@ export function AdminProductsPage() {
       </div>
 
       <div className="rounded-3xl border border-zinc-200 bg-white p-6">
-        <div className="text-sm font-semibold text-zinc-900">Add product</div>
+        <div className="text-sm font-semibold text-zinc-950">Add product</div>
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
           <label className="block">
             <div className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
               Name
             </div>
             <input
-              className="mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-3 py-3 text-sm text-zinc-900 outline-none focus:border-zinc-400"
+              className="mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-3 py-3 text-sm text-zinc-950 outline-none focus:border-zinc-400"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Classic Walnut"
@@ -74,7 +74,7 @@ export function AdminProductsPage() {
               Base price (paise)
             </div>
             <input
-              className="mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-3 py-3 text-sm text-zinc-900 outline-none focus:border-zinc-400"
+              className="mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-3 py-3 text-sm text-zinc-950 outline-none focus:border-zinc-400"
               type="number"
               value={basePrice}
               onChange={(e) => setBasePrice(Number(e.target.value))}
@@ -88,7 +88,7 @@ export function AdminProductsPage() {
               Frame type
             </div>
             <select
-              className="mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-3 py-3 text-sm text-zinc-900 outline-none focus:border-zinc-400"
+              className="mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-3 py-3 text-sm text-zinc-950 outline-none focus:border-zinc-400"
               value={frameType}
               onChange={(e) => setFrameType(e.target.value)}
             >
@@ -102,14 +102,14 @@ export function AdminProductsPage() {
           type="button"
           onClick={() => create.mutate()}
           disabled={!name || create.isPending}
-          className="mt-5 rounded-full bg-zinc-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800 disabled:opacity-60"
+          className="mt-5 rounded-full bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 text-white px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800 disabled:opacity-60"
         >
           Create
         </button>
       </div>
 
       <div className="rounded-3xl border border-zinc-200 bg-white p-6">
-        <div className="text-sm font-semibold text-zinc-900">All products</div>
+        <div className="text-sm font-semibold text-zinc-950">All products</div>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full min-w-[640px] text-left text-sm">
             <thead className="text-xs uppercase tracking-wide text-zinc-500">
@@ -127,7 +127,7 @@ export function AdminProductsPage() {
                   <td className="py-3 font-mono text-xs text-zinc-600">
                     {p.id}
                   </td>
-                  <td className="py-3 font-semibold text-zinc-900">{p.name}</td>
+                  <td className="py-3 font-semibold text-zinc-950">{p.name}</td>
                   <td className="py-3 text-zinc-700">
                     {p.frameTypes.join(', ')}
                   </td>

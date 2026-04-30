@@ -46,7 +46,7 @@ return 'text-yellow-600'
 case 'cancelled':
 return 'text-red-600'
 default:
-return 'text-zinc-900'
+return 'text-zinc-950'
 }
 }
 
@@ -56,7 +56,8 @@ return status === 'paid'
 : 'text-yellow-600'
 }
 
-return<div className="container-px py-10 max-w-xl mx-auto"> <h1 className="text-xl font-semibold text-zinc-900">
+return<div className="container-px py-10 max-w-xl mx-auto"> 
+<h1 className="text-xl bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 bg-clip-text text-transparent font-bold">
 Track Your Order </h1>
 
   {/* INPUT */}
@@ -69,7 +70,7 @@ Track Your Order </h1>
     />
     <button
       onClick={handleSearch}
-      className="rounded-2xl bg-zinc-900 text-white px-5"
+      className="rounded-2xl bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 text-white text-white px-5"
     >
       Search
     </button>

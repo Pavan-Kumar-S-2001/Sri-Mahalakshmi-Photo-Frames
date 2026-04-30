@@ -14,7 +14,7 @@ export function AdminLayout() {
         <aside className="w-full lg:w-72">
           <div className="rounded-3xl border border-zinc-200 bg-white p-5">
             <div className="flex items-center justify-between gap-3">
-              <div className="text-sm font-semibold text-zinc-900">Admin</div>
+              <div className="text-sm font-semibold text-zinc-950">Admin</div>
               <button
                 type="button"
                 className="rounded-full border border-zinc-200 px-3 py-1.5 text-xs font-semibold text-zinc-700 transition hover:bg-zinc-50"
@@ -56,8 +56,8 @@ function AdminNav({
         twMerge(
           'rounded-2xl px-4 py-3 text-sm font-semibold transition',
           isActive
-            ? 'bg-zinc-900 text-white'
-            : 'text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900',
+            ? 'bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 text-white text-white'
+            : 'text-zinc-700 hover:bg-zinc-50 hover:text-zinc-950',
         )
       }
       end={to === '/admin'}

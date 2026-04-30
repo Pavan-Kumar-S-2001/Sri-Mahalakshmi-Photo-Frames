@@ -54,7 +54,7 @@ return (
 
 ```
   <div className="container-px py-10">
-    <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
+    <h1 className="text-3xl font-bold tracking-tight text-zinc-950">
       Checkout
     </h1>
 
@@ -119,7 +119,7 @@ return (
       {/* LEFT */}
       <section className="lg:col-span-7">
         <div className="rounded-3xl border border-zinc-200 bg-white p-6">
-          <div className="text-sm font-semibold text-zinc-900">
+          <div className="text-sm font-semibold text-zinc-950">
             Delivery address
           </div>
 
@@ -149,7 +149,7 @@ return (
         </div>
 
         <div className="mt-6 rounded-3xl border border-zinc-200 bg-white p-6">
-          <div className="text-sm font-semibold text-zinc-900">Payment</div>
+          <div className="text-sm font-semibold text-zinc-950">Payment</div>
 
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             <PaymentChoice
@@ -176,7 +176,7 @@ return (
       {/* RIGHT */}
       <aside className="lg:col-span-5">
         <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
-          <div className="text-sm font-semibold text-zinc-900">
+          <div className="text-sm font-semibold text-zinc-950">
             Order summary
           </div>
 
@@ -191,7 +191,7 @@ return (
           <button
             type="submit"
             disabled={cartItems.length === 0 || loading}
-            className="mt-6 w-full rounded-full bg-zinc-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800 disabled:opacity-50"
+            className="mt-6 w-full rounded-full bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 text-white px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800 disabled:opacity-50"
           >
             {loading ? 'Processing...' : 'Pay with Razorpay'}
           </button>
@@ -211,7 +211,7 @@ return ( <label className="block"> <div className="text-xs font-semibold upperca
 
 function inputCls(hasError: any) {
 return [
-'w-full rounded-2xl border bg-white px-3 py-3 text-sm text-zinc-900 outline-none',
+'w-full rounded-2xl border bg-white px-3 py-3 text-sm text-zinc-950 outline-none',
 hasError ? 'border-red-300' : 'border-zinc-200',
 ].join(' ')
 }
@@ -229,7 +229,7 @@ return (
 type="button"
 onClick={onClick}
 className={`rounded-2xl border p-4 text-left ${
-        selected ? 'bg-zinc-900 text-white' : 'bg-white'
+        selected ? 'bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 text-white text-white' : 'bg-white'
       }`}
 > <div className="text-sm font-semibold">{title}</div> <div className="text-xs mt-1">{desc}</div> </button>
 )

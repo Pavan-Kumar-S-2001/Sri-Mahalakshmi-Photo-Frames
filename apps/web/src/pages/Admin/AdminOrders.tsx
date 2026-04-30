@@ -1,5 +1,3 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { apiFetch } from '../../lib/apiClient'
 import { formatINR } from '../../lib/money'
 
 type Order = {
@@ -15,39 +13,37 @@ type Order = {
 }
 
 export function AdminOrdersPage() {
-  const q = useQuery({
-    queryKey: ['admin', 'orders'],
-    queryFn: () => apiFetch<{ orders: Order[] }>('/orders'),
-  })
-
-  const updateStatus = useMutation({
-    mutationFn: async ({ id, status }: { id: string; status: string }) => {
-      await apiFetch(`/admin/orders/${id}/status`, {
-        method: 'PATCH',
-        body: JSON.stringify({ status }),
-      })
+  const orders: Order[] = [
+    {
+      id: 'ORD001',
+      status: 'created',
+      paymentStatus: 'paid',
+      paymentMode: 'online',
+      totalPaise: 150000,
+      payableNowPaise: 0,
+      fullName: 'Pavan Kumar',
+      phone: '9876543210',
+      createdAt: '2026-01-01T10:00:00Z',
     },
-    onSuccess: async () => {
-      await q.refetch()
+    {
+      id: 'ORD002',
+      status: 'shipped',
+      paymentStatus: 'pending',
+      paymentMode: 'cod',
+      totalPaise: 220000,
+      payableNowPaise: 50000,
+      fullName: 'Ravi Kumar',
+      phone: '9123456780',
+      createdAt: '2026-01-02T14:30:00Z',
     },
-  })
+  ]
 
-  const orders = q.data?.orders ?? []
-
-  // ✅ NEW: loading state
-  if (q.isLoading) {
-    return <div className="p-6">Loading orders...</div>
-  }
-
-  // ✅ NEW: error state
-  if (q.isError) {
-    return <div className="p-6 text-red-600">Failed to load orders</div>
-  }
+  const updateStatus = { isPending: false }
 
   return (
     <div className="space-y-6">
       <div className="rounded-3xl border border-zinc-200 bg-white p-6">
-        <h1 className="text-xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="text-xl font-semibold tracking-tight text-zinc-950">
           Orders
         </h1>
         <p className="mt-2 text-sm text-zinc-600">
@@ -76,14 +72,14 @@ export function AdminOrdersPage() {
                   </td>
 
                   <td className="py-3">
-                    <div className="font-semibold text-zinc-900">
+                    <div className="font-semibold text-zinc-950">
                       {o.fullName}
                     </div>
                     <div className="text-xs text-zinc-600">{o.phone}</div>
                   </td>
 
                   <td className="py-3">
-                    <div className="text-zinc-900">
+                    <div className="text-zinc-950">
                       <span
                         className={`px-2 py-1 rounded-full text-xs ${
                           o.paymentStatus === 'paid'
@@ -101,21 +97,18 @@ export function AdminOrdersPage() {
                     </div>
                   </td>
 
-                  <td className="py-3 text-zinc-900">
+                  <td className="py-3 text-zinc-950">
                     {formatINR(o.totalPaise)}
                   </td>
 
                   <td className="py-3">
                     <select
                       disabled={updateStatus.isPending} // ✅ NEW
-                      className="w-full rounded-2xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-zinc-400 disabled:opacity-50"
+                      className="w-full rounded-2xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-400 disabled:opacity-50"
                       value={o.status}
-                      onChange={(e) =>
-                        updateStatus.mutate({
-                          id: o.id,
-                          status: e.target.value,
-                        })
-                      }
+                      onChange={(e) => {
+  alert(`Order ${o.id} status changed to ${e.target.value}`)
+}}
                     >
                       {[
                         'created',

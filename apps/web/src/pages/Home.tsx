@@ -31,54 +31,105 @@ export function HomePage() {
         />
       </Helmet>
 
-      <section className="container-px py-10 sm:py-14">
+      <section className="container-px py-16 sm:py-20">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-5">
-            <p className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1 text-m font-medium text-zinc-700">
-              Premium frames • Made for your memories
-            </p>
-            <h1 className="mt-5 text-balance text-4xl font-semibold tracking-tight text-zinc-900 sm:text-5xl">
-              Turn Photos Into
-              <span className="text-zinc-500"> Gallery‑Grade</span> Frames
-            </h1>
-            <p className="mt-4 max-w-xl text-pretty text-base text-zinc-600 sm:text-lg">
-              Upload your photo, pick the size and finish, and preview your
-              frame instantly. Clean design, premium materials, fast delivery.
-            </p>
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Link
-                to="/shop"
-                className="inline-flex items-center justify-center rounded-full bg-zinc-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800"
-              >
-                Upload Your Photo
-              </Link>
-              <Link
-                to="/shop"
-                className="inline-flex items-center justify-center rounded-full border border-zinc-200 bg-white px-5 py-3 text-sm font-semibold text-zinc-900 transition hover:bg-zinc-50"
-              >
-                Browse frames
-              </Link>
-            </div>
-          </div>
 
+  {/* tagline */}
+  <p className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1 text-sm font-medium text-zinc-700">
+    Premium frames • Made for your memories
+  </p>
+
+  {/* heading */}
+  <h1 className="mt-5 text-5xl sm:text-6xl font-bold leading-tight">
+  Turn Your Memories Into
+  <br />
+  <span className="bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 bg-clip-text text-transparent">
+    Luxury Wall Art
+  </span>
+</h1>
+
+  {/* description */}
+  <p className="mt-5 max-w-xl text-lg text-zinc-600 leading-relaxed">
+    Upload your photo and transform it into a luxury frame crafted for your home.
+    High-quality materials, elegant finishes, and fast delivery.
+  </p>
+
+  {/* buttons */}
+  <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+    <Link
+      to="/shop"
+      className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 px-5 py-3 text-sm font-semibold text-white shadow-lg hover:scale-105 transition"
+    >
+      Upload Your Photo
+    </Link>
+
+    <Link
+      to="/shop"
+      className="inline-flex items-center justify-center rounded-full border border-zinc-200 bg-white px-5 py-3 text-sm font-semibold text-zinc-950 transition hover:bg-zinc-50"
+    >
+      Browse Frames
+    </Link>
+  </div>
+
+  {/* trust badges */}
+  <div className="mt-6 flex flex-wrap gap-4 text-sm text-zinc-600">
+    <span>✔ 1000+ Happy Customers</span>
+    <span>✔ Premium Quality Frames</span>
+    <span>✔ Fast Delivery</span>
+  </div>
+
+</div>
           <div className="lg:col-span-7">
             <HeroSlider />
           </div>
         </div>
       </section>
+      {/* WHY CHOOSE US */}
+<section className="container-px py-16">
+  <h2 className="text-2xl font-bold text-center text-zinc-950">
+    Why Choose Us
+  </h2>
 
+  <div className="mt-10 grid gap-6 md:grid-cols-3">
+    {[
+      {
+        title: 'Premium Quality',
+        desc: 'High-end materials and finishing',
+      },
+      {
+        title: 'Custom Designs',
+        desc: 'Personalized frames for your memories',
+      },
+      {
+        title: 'Fast Delivery',
+        desc: 'Quick and safe doorstep delivery',
+      },
+    ].map((item) => (
+      <div
+        key={item.title}
+        className="rounded-3xl border border-zinc-200 p-6 text-center shadow-md hover:shadow-2xl hover:-translate-y-1 transition duration-300"
+      >
+        <h3 className="font-semibold text-lg text-zinc-950">
+          {item.title}
+        </h3>
+        <p className="mt-2 text-sm text-zinc-600">{item.desc}</p>
+      </div>
+    ))}
+  </div>
+</section>
       <section className="border-y border-zinc-200 bg-zinc-50">
-        <div className="container-px py-12">
+        <div className="container-px py-16">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <h2 className="text-xl font-semibold tracking-tight text-zinc-900">
+              <h2 className="text-xl font-semibold tracking-tight text-zinc-950">
                 Featured frames
               </h2>
               <p className="mt-1 text-sm text-zinc-600">
                 Best sellers curated for modern homes.
               </p>
             </div>
-            <Link className="text-sm font-semibold text-zinc-900" to="/shop">
+            <Link className="text-sm font-semibold text-zinc-950" to="/shop">
               Shop all →
             </Link>
           </div>
@@ -87,12 +138,12 @@ export function HomePage() {
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm"
+                className="group rounded-3xl border border-zinc-200 bg-white p-5 shadow-md hover:shadow-2xl hover:-translate-y-1 transition duration-300"
               >
                 <div className="aspect-[4/3] w-full rounded-xl bg-gradient-to-br from-zinc-100 to-zinc-200" />
                 <div className="mt-4 flex items-center justify-between gap-3">
                   <div>
-                    <div className="text-sm font-semibold text-zinc-900">
+                    <div className="text-sm font-semibold text-zinc-950">
                       Signature Frame {i}
                     </div>
                     <div className="mt-1 text-sm text-zinc-600">
@@ -101,7 +152,7 @@ export function HomePage() {
                   </div>
                   <Link
                     to="/shop"
-                    className="rounded-full bg-zinc-900 px-3 py-2 text-xs font-semibold text-white"
+                    className="rounded-full bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 text-white px-3 py-2 text-xs font-semibold"
                   >
                     Customize
                   </Link>
@@ -112,8 +163,8 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="container-px py-12">
-        <h2 className="text-xl font-semibold tracking-tight text-zinc-900">
+      <section className="container-px py-16">
+        <h2 className="text-xl font-semibold tracking-tight text-zinc-950">
           Customer reviews
         </h2>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -127,7 +178,7 @@ export function HomePage() {
               className="rounded-2xl border border-zinc-200 bg-white p-5"
             >
               <div className="text-sm text-zinc-600">{t}</div>
-              <div className="mt-3 text-xs font-semibold text-zinc-900">
+              <div className="mt-3 text-xs font-semibold text-zinc-950">
                 Verified customer
               </div>
             </div>
@@ -140,51 +191,56 @@ export function HomePage() {
 
 function HeroSlider() {
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm">
+    <div className="relative overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-lg">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(24,24,27,0.10),transparent_50%),radial-gradient(circle_at_80%_70%,rgba(24,24,27,0.08),transparent_55%)]" />
+
       <div className="relative p-6 sm:p-8">
         <div className="flex items-center justify-between">
-          <div className="text-sm font-semibold text-zinc-900">New arrivals</div>
-          <div className="text-xs text-zinc-600">Slide</div>
+          <div className="text-sm font-semibold bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 bg-clip-text text-transparent">
+            New arrivals
+          </div>
         </div>
 
-        <div className="mt-6 flex gap-4 overflow-hidden">
-          {slides.map((s, idx) => (
-            <motion.div
-              key={s.id}
-              className="min-w-[70%] rounded-2xl border border-zinc-200 bg-zinc-50 p-5 sm:min-w-[55%]"
-              animate={{ x: [0, -12, 0] }}
-              transition={{
-                duration: 3.5 + idx * 0.4,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            >
-              <div className="relative aspect-[16/9] rounded-xl overflow-hidden">
-  <img
-    src={s.img}
-    className="w-full h-full object-cover"
-  />
+        <div className="mt-6 overflow-hidden">
+          <motion.div
+            className="flex gap-4"
+            animate={{ x: ['0%', '-100%'] }}
+            transition={{
+              repeat: Infinity,
+              duration: 15,
+              ease: 'linear',
+            }}
+          >
+            {[...slides, ...slides].map((s, idx) => (
+              <div
+                key={idx}
+                className="min-w-[300px] sm:min-w-[350px] rounded-3xl border border-zinc-200 bg-white p-5 shadow-lg hover:shadow-2xl transition"
+              >
+                <div className="relative aspect-[16/9] rounded-xl overflow-hidden">
+                  <img
+                    src={s.img}
+                    className="w-full h-full object-cover"
+                  />
 
-  {/* overlay */}
-  <div className="absolute inset-0 bg-black/30" />
+                  <div className="absolute inset-0 bg-black/30" />
 
-  {/* text */}
-  <div className="absolute bottom-3 left-3 text-white text-sm font-semibold">
-    {s.title}
-  </div>
-</div>
-              <div className="mt-4 text-sm font-semibold text-zinc-900">
-                {s.title}
+                  <div className="absolute bottom-3 left-3 text-white text-sm font-semibold">
+                    {s.title}
+                  </div>
+                </div>
+
+                <div className="mt-4 text-sm font-semibold text-zinc-950">
+                  {s.title}
+                </div>
+
+                <div className="mt-1 text-sm text-zinc-600">
+                  Crafted for premium interiors.
+                </div>
               </div>
-              <div className="mt-1 text-sm text-zinc-600">
-                Crafted for premium interiors.
-              </div>
-            </motion.div>
-          ))}
+            ))}
+          </motion.div>
         </div>
       </div>
     </div>
   )
 }
-

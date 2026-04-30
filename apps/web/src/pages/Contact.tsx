@@ -15,7 +15,7 @@ export function ContactPage() {
       </Helmet>
 
       <div className="container-px py-10">
-        <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 bg-clip-text text-transparent">
           Contact
         </h1>
         <p className="mt-1 text-sm text-zinc-600">
@@ -26,7 +26,7 @@ export function ContactPage() {
 
           <aside className="w-full max-w-md">
             <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
-              <div className="text-sm font-semibold text-zinc-900">
+              <div className="text-sm font-semibold text-zinc-950">
                 Get in touch
               </div>
               <div className="mt-4 space-y-3 text-sm">
@@ -36,7 +36,7 @@ export function ContactPage() {
   <span>📞</span>
   <div>
     <div className="text-xs font-semibold uppercase text-zinc-500">Phone</div>
-    <div className="mt-1 font-semibold text-zinc-900">{phone}</div>
+    <div className="mt-1 font-semibold text-zinc-950">{phone}</div>
   </div>
 </div> */}
 
@@ -45,7 +45,7 @@ export function ContactPage() {
   <span>📍</span>
   <div>
     <div className="text-xs font-semibold uppercase text-zinc-500">Address</div>
-    <div className="mt-1 text-zinc-900">
+    <div className="mt-1 text-zinc-950">
       1st main, 2nd cross, FF layout, Laggere - 560058
     </div>
   </div>
@@ -56,7 +56,7 @@ export function ContactPage() {
   <span>📧</span>
   <div>
     <div className="text-xs font-semibold uppercase text-zinc-500">Email</div>
-    <div className="mt-1 text-zinc-900">
+    <div className="mt-1 text-zinc-950">
       srimahalakshmiphoto@gmail.com
     </div>
   </div>
@@ -65,7 +65,7 @@ export function ContactPage() {
   {/* CALL BUTTON */}
   <a
     href={`tel:${phone}`}
-    className="inline-flex w-full items-center justify-center rounded-full border border-zinc-200 bg-white px-5 py-3 text-sm font-semibold text-zinc-900 transition hover:bg-zinc-50"
+    className="inline-flex w-full items-center justify-center rounded-full border border-zinc-200 bg-white px-5 py-3 text-sm font-semibold text-zinc-950 transition hover:bg-zinc-50"
   >
     Call now
   </a>

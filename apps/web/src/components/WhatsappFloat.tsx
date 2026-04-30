@@ -68,12 +68,20 @@ export function WhatsappFloat({ phoneE164 }: Props) {
   }
 
   return (
-    <a
-      href="#"
-      onClick={handleClick}
-      className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-3 text-sm font-semibold text-white shadow-lg hover:bg-emerald-500 transition"
-    >
-      WhatsApp
-    </a>
-  )
+  <a
+    href="#"
+    onClick={handleClick}
+    className="fixed bottom-6 right-6 z-50"
+  >
+    <div className="rounded-full shadow-xl hover:scale-110 transition flex items-center gap-2">
+
+      {/* ICON */}
+      <img
+        src="/images/whatsapp.png"
+        className="w-13 h-13"
+      />
+
+    </div>
+  </a>
+)
 }

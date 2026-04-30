@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
 import { useNavigate, useParams } from 'react-router-dom'
 import { computeCustomizationPricePaise } from '@framecraft/shared'
@@ -14,7 +15,7 @@ export function ProductCustomizePage() {
   const { productId } = useParams()
   const nav = useNavigate()
   const addItem = useCartStore((s) => s.addItem)
-
+  const [added, setAdded] = useState(false)
   const product = productId ? getProduct(productId) : null
 
   const [fileUrl, setFileUrl] = useState<string | null>(null)
@@ -41,7 +42,7 @@ export function ProductCustomizePage() {
       <div className="container-px py-10">
         <div className="flex flex-col gap-8 lg:flex-row">
           <section className="flex-1">
-            <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
+            <h1 className="text-3xl font-bold tracking-tight text-zinc-950">
               Customize frame
             </h1>
             <p className="mt-1 text-sm text-zinc-600">
@@ -53,14 +54,14 @@ export function ProductCustomizePage() {
 
             <div className="mt-6 grid gap-4 rounded-3xl border border-zinc-200 bg-white p-6">
               <div>
-                <div className="text-sm font-semibold text-zinc-900">
+                <div className="text-xl font-bold text-green-600">
                   Upload image
                 </div>
                 <p className="mt-1 text-sm text-zinc-600">
                   We’ll use this photo for your live preview and final print.
                 </p>
                 <input
-                  className="mt-3 block w-full text-sm text-zinc-700 file:mr-4 file:rounded-full file:border-0 file:bg-zinc-900 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-zinc-800"
+                  className="mt-3 block w-full text-sm text-zinc-700 file:mr-4 file:rounded-full file:border-0 file:bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 text-white file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-zinc-800"
                   type="file"
                   accept="image/*"
                   onChange={(e) => {
@@ -106,9 +107,9 @@ export function ProductCustomizePage() {
             </div>
           </section>
 
-          <aside className="w-full lg:w-[420px]">
+          <aside className="w-full lg:w-[420px] lg:sticky lg:top-24 h-fit">
             <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
-              <div className="text-sm font-semibold text-zinc-900">
+              <div className="text-lg font-bold text-green-600">
                 Live preview
               </div>
               <div className="mt-4">
@@ -117,42 +118,61 @@ export function ProductCustomizePage() {
 
               <div className="mt-6 rounded-2xl bg-zinc-50 p-4">
                 <div className="flex items-center justify-between">
-                  <div className="text-sm font-semibold text-zinc-900">
+                  <div className="text-xl font-bold text-green-600">
                     Price
                   </div>
-                  <div className="text-sm font-semibold text-zinc-900">
+                  <div className="text-xl font-bold text-green-600">
                     {formatINR(price.subtotalPaise)}
                   </div>
+                  <div className="mt-3 text-xs text-green-600 font-medium">
+  ✔ Free delivery above ₹1000
+</div>
                 </div>
                 <div className="mt-1 text-xs text-zinc-600">
                   Final total includes delivery (shown in cart/checkout).
                 </div>
               </div>
+{added && (
+  <motion.div
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    className="mt-4 text-center text-green-600 font-semibold bg-green-50 border border-green-200 rounded-xl py-2"
+  >
+    ✔ Item added to cart!
+  </motion.div>
+)}
+              <motion.button
+  whileTap={{ scale: 0.95 }}
+  whileHover={{ scale: 1.03 }}
+  type="button"
+  className="mt-6 w-full rounded-full bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 px-5 py-3 text-sm font-semibold text-white shadow-lg transition disabled:cursor-not-allowed disabled:opacity-60"
+  disabled={!fileUrl}
+  onClick={() => {
+    if (!productId) return
 
-              <button
-                type="button"
-                className="mt-6 w-full rounded-full bg-zinc-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-60"
-                disabled={!fileUrl}
-                onClick={() => {
-                  if (!productId) return
-                  addItem({
-                    productId,
-                    productName: product?.name ?? 'Custom frame',
-                    basePricePaise: product?.basePricePaise ?? 99900,
-                    qty: 1,
-                    customization: {
-                      size,
-                      style,
-                      glass,
-                      designService: false,
-                    },
-                    localImageUrl: fileUrl ?? undefined,
-                  })
-                  nav('/cart')
-                }}
-              >
-                Add to cart
-              </button>
+    addItem({
+      productId,
+      productName: product?.name ?? 'Custom frame',
+      basePricePaise: product?.basePricePaise ?? 99900,
+      qty: 1,
+      customization: {
+        size,
+        style,
+        glass,
+        designService: false,
+      },
+      localImageUrl: fileUrl ?? undefined,
+    })
+
+    setAdded(true)
+
+    setTimeout(() => {
+      nav('/cart')
+    }, 800)
+  }}
+>
+  {added ? '✔ Added!' : 'Add to cart'}
+</motion.button>
               <p className="mt-3 text-xs text-zinc-500">
                 Cart/pricing will be fully wired once the shared pricing +
                 backend order creation is in place.
@@ -182,7 +202,7 @@ function Select({
         {label}
       </div>
       <select
-        className="mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-3 py-3 text-sm text-zinc-900 outline-none focus:border-zinc-400"
+        className="mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-3 py-3 text-sm text-zinc-950 outline-none focus:border-zinc-400"
         value={value}
         onChange={(e) => onChange(e.target.value)}
       >
