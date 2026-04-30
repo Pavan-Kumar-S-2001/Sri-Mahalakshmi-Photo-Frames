@@ -247,5 +247,5 @@ function HeroSlider() {
         </div>
       </div>
     </div>
-  )
-}
+  )}
+  <HeroSlider />
