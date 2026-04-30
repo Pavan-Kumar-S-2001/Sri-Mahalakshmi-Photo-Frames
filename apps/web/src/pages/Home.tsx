@@ -22,7 +22,7 @@ const slides = [
 
 export function HomePage() {
   return (
-    <>
+    <div className="max-w-7xl mx-auto">
       <Helmet>
         <title>Sri Mahalakshmi Photo Frames — Custom Photo Frames</title>
         <meta
@@ -31,60 +31,65 @@ export function HomePage() {
         />
       </Helmet>
 
-      <section className="container-px py-16 sm:py-20">
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-5">
+      <section className="relative w-full overflow-hidden">
+  <div className="relative h-[400px] sm:h-[500px] md:h-[550px]">
 
-  {/* tagline */}
-  <p className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1 text-sm font-medium text-zinc-700">
-    Premium frames • Made for your memories
-  </p>
+    <div className="absolute inset-0 animate-fade1">
+      <img src="/images/frames/frame1.jpg" className="w-full h-full object-cover" />
+      <div className="absolute inset-0 bg-black/50" />
+    </div>
 
-  {/* heading */}
-  <h1 className="mt-5 text-5xl sm:text-6xl font-bold leading-tight">
-  Turn Your Memories Into
-  <br />
-  <span className="bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 bg-clip-text text-transparent">
-    Luxury Wall Art
-  </span>
-</h1>
+    <div className="absolute inset-0 animate-fade2 delay-[5s]">
+      <img src="/images/frames/frame2.jpg" className="w-full h-full object-cover" />
+      <div className="absolute inset-0 bg-black/50" />
+    </div>
 
-  {/* description */}
-  <p className="mt-5 max-w-xl text-lg text-zinc-600 leading-relaxed">
-    Upload your photo and transform it into a luxury frame crafted for your home.
-    High-quality materials, elegant finishes, and fast delivery.
-  </p>
+    <div className="absolute inset-0 animate-fade3 delay-[10s]">
+      <img src="/images/frames/frame3.jpg" className="w-full h-full object-cover" />
+      <div className="absolute inset-0 bg-black/50" />
+    </div>
 
-  {/* buttons */}
-  <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-    <Link
-      to="/shop"
-      className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 px-5 py-3 text-sm font-semibold text-white shadow-lg hover:scale-105 transition"
-    >
-      Upload Your Photo
-    </Link>
-
-    <Link
-      to="/shop"
-      className="inline-flex items-center justify-center rounded-full border border-zinc-200 bg-white px-5 py-3 text-sm font-semibold text-zinc-950 transition hover:bg-zinc-50"
-    >
-      Browse Frames
-    </Link>
   </div>
 
-  {/* trust badges */}
-  <div className="mt-6 flex flex-wrap gap-4 text-sm text-zinc-600">
-    <span>✔ 1000+ Happy Customers</span>
-    <span>✔ Premium Quality Frames</span>
-    <span>✔ Fast Delivery</span>
-  </div>
+  <div className="absolute inset-0 flex items-center">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+      <div className="max-w-xl text-white">
 
-</div>
-          <div className="lg:col-span-7">
-            <HeroSlider />
-          </div>
+        <p className="text-sm bg-white/20 inline-block px-3 py-1 rounded-full">
+          Premium frames • Made for your memories
+        </p>
+
+        <h1 className="mt-5 text-2xl sm:text-3xl md:text-5xl font-bold">
+          Turn Your Memories Into
+          <br />
+          <span className="text-yellow-400">Luxury Wall Art</span>
+        </h1>
+
+        <p className="mt-4 text-sm sm:text-base text-zinc-200">
+          Upload your photo and transform it into premium frames.
+        </p>
+
+        <div className="mt-6 flex flex-col sm:flex-row gap-3">
+          <Link
+            to="/shop"
+            className="bg-yellow-500 text-white px-5 py-3 rounded-full text-sm font-semibold text-center"
+          >
+            Upload Your Photo
+          </Link>
+
+          <Link
+            to="/shop"
+            className="bg-white text-black px-5 py-3 rounded-full text-sm font-semibold text-center"
+          >
+            Browse Frames
+          </Link>
         </div>
-      </section>
+
+      </div>
+    </div>
+  </div>
+</section>
+      
       {/* WHY CHOOSE US */}
 <section className="container-px py-16">
   <h2 className="text-2xl font-bold text-center text-zinc-950">
@@ -134,7 +139,7 @@ export function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
@@ -185,7 +190,7 @@ export function HomePage() {
           ))}
         </div>
       </section>
-    </>
+    </div>
   )
 }
 
@@ -219,7 +224,7 @@ function HeroSlider() {
                 <div className="relative aspect-[16/9] rounded-xl overflow-hidden">
                   <img
                     src={s.img}
-                    className="w-full h-full object-cover"
+                    className="w-full h-auto object-cover"
                   />
 
                   <div className="absolute inset-0 bg-black/30" />
