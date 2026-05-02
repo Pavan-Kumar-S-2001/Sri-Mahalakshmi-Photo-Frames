@@ -1,5 +1,11 @@
-<h1>Website Temporarily Unavailable</h1>
-<p>This website has been temporarily suspended due to pending payment.</p>
+export default function Home() {
+  return (
+    <div style={{textAlign: "center", marginTop: "100px"}}>
+      <h1>Website Temporarily Unavailable</h1>
+      <p>This website has been suspended due to pending payment.</p>
+    </div>
+  );
+}
 // import HeroSlider from '../components/HeroSlider'
 // import { Link } from 'react-router-dom'
 // import { Helmet } from 'react-helmet-async'
