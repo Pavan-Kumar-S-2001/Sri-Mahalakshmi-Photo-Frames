@@ -32,6 +32,17 @@ enum PaymentMode {
   advance
 }
 
+enum ProductAvailabilityStatus {
+  in_stock
+  out_of_stock
+  soon_available
+}
+
+enum BalancePaymentMethod {
+  cash
+  online
+}
+
 model User {
   id        String   @id @default(cuid())
   email     String?  @unique
@@ -45,16 +56,18 @@ model User {
 }
 
 model Product {
-  id            String   @id @default(cuid())
-  name          String
-  basePricePaise Int
-  images        String[]
-  frameTypes    String[]
-  sizes         String[]
-  glassTypes    String[]
-  active        Boolean  @default(true)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id                 String                    @id @default(cuid())
+  name               String
+  basePricePaise     Int
+  images             String[]
+  frameTypes         String[]
+  sizes              String[]
+  glassTypes         String[]
+  availabilityStatus ProductAvailabilityStatus @default(in_stock)
+  minimumAdvancePaise Int
+  active             Boolean                   @default(true)
+  createdAt          DateTime                  @default(now())
+  updatedAt          DateTime                  @updatedAt
 
   orderItems OrderItem[]
 }
@@ -68,6 +81,11 @@ model Order {
   paymentStatus   PaymentStatus @default(pending)
   paymentMode     PaymentMode   @default(full)
   advancePercent  Int           @default(30)
+  advancePaidPaise Int          @default(0)
+  balancePaymentStatus PaymentStatus @default(pending)
+  balancePaymentMethod BalancePaymentMethod?
+  balancePaidPaise Int          @default(0)
+  balancePaidAt DateTime?
 
   subtotalPaise   Int
   deliveryFeePaise Int
@@ -112,4 +130,3 @@ model Upload {
   size       Int
   createdAt  DateTime @default(now())
 }
-

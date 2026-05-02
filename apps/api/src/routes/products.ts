@@ -18,4 +18,3 @@ productsRouter.get('/:id', async (req, res) => {
   if (!product || !product.active) return res.status(404).json({ error: 'NOT_FOUND' })
   res.json({ product })
 })
-

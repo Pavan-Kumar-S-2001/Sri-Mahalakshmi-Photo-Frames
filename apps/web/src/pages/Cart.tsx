@@ -4,21 +4,23 @@ import { useCartStore } from '../store/cartStore'
 import { computeCustomizationPricePaise } from '@framecraft/shared'
 import { formatINR } from '../lib/money'
 
+const DEFAULT_MINIMUM_ADVANCE_PAISE = 50000
+
 export function CartPage() {
-  const items = useCartStore((s) => s.items)
-  const removeItem = useCartStore((s) => s.removeItem)
-  const setQty = useCartStore((s) => s.setQty)
-  const totalsFn = useCartStore((s) => s.totals)
+  const items = useCartStore((state) => state.items)
+  const removeItem = useCartStore((state) => state.removeItem)
+  const setQty = useCartStore((state) => state.setQty)
+  const totalsFn = useCartStore((state) => state.totals)
   const totals = totalsFn()
 
   return (
     <>
       <Helmet>
-        <title>Cart — Sri Mahalakshmi Photo Frames</title>
+        <title>Cart - Sri Mahalakshmi Photo Frames</title>
       </Helmet>
 
       <div className="container-px py-10">
-        <h1 className="text-3xl bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 bg-clip-text text-transparent font-bold">
+        <h1 className="bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 bg-clip-text text-3xl font-bold text-transparent">
           Cart
         </h1>
         <p className="mt-1 text-sm text-zinc-600">
@@ -37,47 +39,56 @@ export function CartPage() {
                 </div>
                 <Link
                   to="/shop"
-                  className="mt-6 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 text-white px-5 py-3 text-sm font-semibold text-white transition hover:bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 shadow-lg hover:scale-105 transition"
+                  className="mt-6 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:scale-105"
                 >
                   Go to shop
                 </Link>
               </div>
             ) : (
               <div className="space-y-4">
-                {items.map((it) => {
+                {items.map((item) => {
                   const breakdown = computeCustomizationPricePaise(
-                    it.basePricePaise,
-                    it.customization,
+                    item.basePricePaise,
+                    item.customization,
                   )
+                  const minimumAdvancePaise =
+                    typeof item.minimumAdvancePaise === 'number' && item.minimumAdvancePaise > 0
+                      ? item.minimumAdvancePaise
+                      : DEFAULT_MINIMUM_ADVANCE_PAISE
+
                   return (
                     <div
-                      key={it.id}
+                      key={item.id}
                       className="rounded-3xl border border-zinc-200 bg-white p-6"
                     >
                       <div className="flex gap-4">
                         <div className="size-24 overflow-hidden rounded-2xl bg-zinc-100">
-                          {it.localImageUrl ? (
+                          {item.localImageUrl ? (
                             <img
-                              src={it.localImageUrl}
+                              src={item.localImageUrl}
                               alt=""
                               className="size-full object-cover"
                             />
                           ) : null}
                         </div>
+
                         <div className="min-w-0 flex-1">
                           <div className="flex items-start justify-between gap-4">
                             <div className="min-w-0">
                               <div className="truncate text-sm font-semibold text-zinc-950">
-                                {it.productName}
+                                {item.productName}
                               </div>
                               <div className="mt-1 text-xs text-zinc-600">
-                                Size {it.customization.size} • Style{' '}
-                                {it.customization.style} • Glass{' '}
-                                {it.customization.glass}
+                                Size {item.customization.size} | Style {item.customization.style} | Glass{' '}
+                                {item.customization.glass}
+                              </div>
+                              <div className="mt-2 text-xs font-semibold text-amber-700">
+                                Minimum advance {formatINR(minimumAdvancePaise * item.qty)}
                               </div>
                             </div>
+
                             <div className="text-sm font-semibold text-zinc-950">
-                              {formatINR(breakdown.subtotalPaise * it.qty)}
+                              {formatINR(breakdown.subtotalPaise * item.qty)}
                             </div>
                           </div>
 
@@ -86,17 +97,17 @@ export function CartPage() {
                               <button
                                 type="button"
                                 className="rounded-full px-2 py-1 text-sm font-semibold text-zinc-950 hover:bg-zinc-50"
-                                onClick={() => setQty(it.id, it.qty - 1)}
+                                onClick={() => setQty(item.id, item.qty - 1)}
                               >
-                                −
+                                -
                               </button>
                               <div className="min-w-8 text-center text-sm font-semibold text-zinc-950">
-                                {it.qty}
+                                {item.qty}
                               </div>
                               <button
                                 type="button"
                                 className="rounded-full px-2 py-1 text-sm font-semibold text-zinc-950 hover:bg-zinc-50"
-                                onClick={() => setQty(it.id, it.qty + 1)}
+                                onClick={() => setQty(item.id, item.qty + 1)}
                               >
                                 +
                               </button>
@@ -105,7 +116,7 @@ export function CartPage() {
                             <button
                               type="button"
                               className="text-sm font-semibold text-zinc-600 hover:text-zinc-950"
-                              onClick={() => removeItem(it.id)}
+                              onClick={() => removeItem(item.id)}
                             >
                               Remove
                             </button>
@@ -119,23 +130,22 @@ export function CartPage() {
             )}
           </section>
 
-          <aside className="lg:col-span-4 lg:sticky lg:top-24 h-fit">
-            <div className="rounded-3xl border border-zinc-200 bg-white p-10 text-centre shadow-sm">
+          <aside className="h-fit lg:sticky lg:top-24 lg:col-span-4">
+            <div className="rounded-3xl border border-zinc-200 bg-white p-10 shadow-sm">
               <div className="text-sm font-semibold text-zinc-950">
                 Price summary
               </div>
               <div className="mt-4 space-y-2 text-sm">
                 <Row label="Subtotal" value={formatINR(totals.subtotalPaise)} />
-                <Row
-                  label="Delivery"
-                  value={formatINR(totals.deliveryFeePaise)}
-                />
+                <Row label="Delivery" value={formatINR(totals.deliveryFeePaise)} />
                 <div className="my-3 h-px bg-zinc-200" />
                 <Row label="Total" value={formatINR(totals.totalPaise)} bold />
+                <Row label="Advance to pay now" value={formatINR(totals.advancePayablePaise)} bold />
+                <Row label="Balance after delivery" value={formatINR(totals.remainingDuePaise)} />
               </div>
               <Link
                 to="/checkout"
-                className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-yellow-500 to-amber-600 shadow-lg hover:scale-105 transition"
+                className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-yellow-500 to-amber-600 px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:scale-105"
               >
                 Checkout
               </Link>
@@ -167,4 +177,3 @@ function Row({
     </div>
   )
 }
-

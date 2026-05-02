@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 import { useQuery } from '@tanstack/react-query'
 import { apiFetch } from '../lib/apiClient'
+import { useCartStore } from '../store/cartStore'
 
 const linkBase =
   'rounded-full px-3 py-2 text-sm font-medium text-zinc-600 transition hover:text-zinc-950'
@@ -15,6 +16,9 @@ export function Navbar() {
   })
 
   const isAdmin = data?.user?.role === 'admin'
+  const cartCount = useCartStore((state) =>
+    state.items.reduce((sum, item) => sum + Math.max(1, item.qty || 1), 0),
+  )
 
   return (
     <header className="sticky top-0 z-40 border-b border-zinc-200/70 bg-white/80 backdrop-blur">
@@ -44,9 +48,11 @@ export function Navbar() {
           {/* CART WITH BADGE */}
           <div className="relative">
             <NavItem to="/cart">Cart</NavItem>
-            <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
-              2
-            </span>
+            {cartCount > 0 ? (
+              <span className="absolute -right-2 -top-2 rounded-full bg-yellow-500 px-2 py-0.5 text-xs font-bold text-white">
+                {cartCount}
+              </span>
+            ) : null}
           </div>
 
           <NavItem to="/contact">Contact</NavItem>

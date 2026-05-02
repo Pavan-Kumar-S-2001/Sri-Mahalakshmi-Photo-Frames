@@ -9,6 +9,8 @@ export const catalog: Product[] = [
     frameTypes: ['wood'],
     sizes: ['8x10', '12x18', '16x24'],
     glassTypes: ['standard', 'antiGlare', 'museum'],
+    availabilityStatus: 'in_stock',
+    minimumAdvancePaise: 50000,
     active: true,
   },
   {
@@ -19,6 +21,8 @@ export const catalog: Product[] = [
     frameTypes: ['metal'],
     sizes: ['8x10', '12x18', '16x24'],
     glassTypes: ['standard', 'antiGlare', 'museum'],
+    availabilityStatus: 'in_stock',
+    minimumAdvancePaise: 50000,
     active: true,
   },
   {
@@ -29,6 +33,8 @@ export const catalog: Product[] = [
     frameTypes: ['acrylic'],
     sizes: ['8x10', '12x18', '16x24'],
     glassTypes: ['standard', 'antiGlare', 'museum'],
+    availabilityStatus: 'in_stock',
+    minimumAdvancePaise: 50000,
     active: true,
   },
 ]
@@ -36,4 +42,3 @@ export const catalog: Product[] = [
 export function getProduct(productId: string) {
   return catalog.find((p) => p.id === productId) ?? null
 }
-

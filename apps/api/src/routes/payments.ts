@@ -46,6 +46,47 @@ paymentsRouter.post('/razorpay/order', async (req, res) => {
   })
 })
 
+paymentsRouter.post('/razorpay/confirm', async (req, res) => {
+  const parsed = z
+    .object({
+      orderId: z.string().min(1),
+      razorpayOrderId: z.string().min(1),
+      razorpayPaymentId: z.string().min(1),
+    })
+    .safeParse(req.body)
+
+  if (!parsed.success) return res.status(400).json({ error: 'BAD_REQUEST' })
+
+  const order = await prisma.order.findUnique({ where: { id: parsed.data.orderId } })
+  if (!order) return res.status(404).json({ error: 'NOT_FOUND' })
+
+  const razorpay = createRazorpayClient()
+  const payment: any = await razorpay.payments.fetch(parsed.data.razorpayPaymentId)
+
+  if (
+    payment?.order_id !== parsed.data.razorpayOrderId ||
+    payment?.order_id !== order.razorpayOrderId
+  ) {
+    return res.status(400).json({ error: 'PAYMENT_MISMATCH' })
+  }
+
+  if (payment?.status !== 'captured' && payment?.status !== 'authorized') {
+    return res.status(400).json({ error: 'PAYMENT_NOT_CAPTURED' })
+  }
+
+  const updated = await prisma.order.update({
+    where: { id: order.id },
+    data: {
+      paymentStatus: 'paid',
+      advancePaidPaise: order.payableNowPaise,
+      status: 'confirmed',
+      razorpayPaymentId: parsed.data.razorpayPaymentId,
+    },
+  })
+
+  res.json({ order: updated })
+})
+
 paymentsRouter.post(
   '/razorpay/webhook',
   express.raw({ type: 'application/json' }),
@@ -74,6 +115,7 @@ paymentsRouter.post(
         where: { id: order.id },
         data: {
           paymentStatus: 'paid',
+          advancePaidPaise: order.payableNowPaise,
           status: 'confirmed',
           razorpayPaymentId: razorpayPaymentId ?? order.razorpayPaymentId,
         },
@@ -93,4 +135,3 @@ paymentsRouter.post(
     res.json({ ok: true })
   },
 )
-

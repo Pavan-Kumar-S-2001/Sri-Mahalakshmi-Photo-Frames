@@ -7,6 +7,10 @@ export type FrameGlassType = 'standard' | 'antiGlare' | 'museum'
 export type FrameStyle = 'minimal' | 'classic' | 'gallery'
 
 export type FrameSize = '8x10' | '12x18' | '16x24'
+export type ProductAvailabilityStatus =
+  | 'in_stock'
+  | 'out_of_stock'
+  | 'soon_available'
 
 export type Product = {
   id: string
@@ -16,6 +20,8 @@ export type Product = {
   frameTypes: string[]
   sizes: FrameSize[]
   glassTypes: FrameGlassType[]
+  availabilityStatus: ProductAvailabilityStatus
+  minimumAdvancePaise: number
   active: boolean
 }
 
@@ -71,3 +77,4 @@ export function computeDeliveryFeePaise(subtotalPaise: number) {
   return 19900
 }
 
+export const MIN_ORDER_VALUE_PAISE = 50000

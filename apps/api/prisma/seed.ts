@@ -12,6 +12,8 @@ async function main() {
       frameTypes: ['wood'],
       sizes: ['8x10', '12x18', '16x24'],
       glassTypes: ['standard', 'antiGlare', 'museum'],
+      availabilityStatus: 'in_stock',
+      minimumAdvancePaise: 50000,
       active: true,
     },
     {
@@ -22,6 +24,8 @@ async function main() {
       frameTypes: ['metal'],
       sizes: ['8x10', '12x18', '16x24'],
       glassTypes: ['standard', 'antiGlare', 'museum'],
+      availabilityStatus: 'in_stock',
+      minimumAdvancePaise: 50000,
       active: true,
     },
     {
@@ -32,6 +36,8 @@ async function main() {
       frameTypes: ['acrylic'],
       sizes: ['8x10', '12x18', '16x24'],
       glassTypes: ['standard', 'antiGlare', 'museum'],
+      availabilityStatus: 'in_stock',
+      minimumAdvancePaise: 50000,
       active: true,
     },
   ]
@@ -54,4 +60,3 @@ main()
     await prisma.$disconnect()
     process.exit(1)
   })
-

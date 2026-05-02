@@ -1,78 +1,99 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import type { ProductAvailabilityStatus } from '@framecraft/shared'
+import { formatINR } from '../lib/money'
+
+function statusLabel(status: ProductAvailabilityStatus) {
+  switch (status) {
+    case 'in_stock':
+      return 'In stock'
+    case 'out_of_stock':
+      return 'Out of stock'
+    case 'soon_available':
+      return 'Soon available'
+  }
+}
+
+function statusClass(status: ProductAvailabilityStatus) {
+  switch (status) {
+    case 'in_stock':
+      return 'bg-green-100 text-green-700'
+    case 'out_of_stock':
+      return 'bg-red-100 text-red-700'
+    case 'soon_available':
+      return 'bg-yellow-100 text-yellow-700'
+  }
+}
 
 export function ProductCard({
   id,
   name,
-  price,
+  basePricePaise,
+  minimumAdvancePaise,
   imageUrl,
+  availabilityStatus,
 }: {
   id: string
   name: string
-  price: number
+  basePricePaise: number
+  minimumAdvancePaise: number
   imageUrl?: string
+  availabilityStatus: ProductAvailabilityStatus
 }) {
+  const canCustomize = availabilityStatus === 'in_stock'
+
   return (
     <motion.div
       layout
       whileHover={{ y: -5 }}
-      className="group rounded-3xl border border-zinc-200 bg-white overflow-hidden shadow-lg hover:shadow-2xl transition duration-300"
+      className="group overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-lg transition duration-300 hover:shadow-2xl"
     >
       <div className="relative overflow-hidden">
         <div className="aspect-[4/3] w-full">
           <img
             src={imageUrl || '/placeholder.png'}
             alt={name}
-            className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
           />
         </div>
 
-        {/* overlay effect */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition" />
-      </div>
-
-      <div className="p-5 flex items-center justify-between">
-        <div>
-          <div className="text-base font-semibold text-zinc-950">{name}</div>
-          <div className="mt-1 text-sm text-zinc-600 font-medium">₹{price}</div>
+        <div className="absolute left-3 top-3 rounded-full px-3 py-1 text-xs font-semibold shadow-sm bg-white/90 text-zinc-900">
+          Advance {formatINR(minimumAdvancePaise)}
         </div>
 
-        <Link
-          to={`/product/${id}`}
-          className="rounded-full bg-gradient-to-r from-yellow-500 to-amber-600 px-4 py-2 text-xs font-semibold text-white shadow hover:scale-105 transition"
+        <div
+          className={[
+            'absolute right-3 top-3 rounded-full px-3 py-1 text-xs font-semibold shadow-sm',
+            statusClass(availabilityStatus),
+          ].join(' ')}
         >
-          Customize
-        </Link>
+          {statusLabel(availabilityStatus)}
+        </div>
+
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 transition group-hover:opacity-100" />
+      </div>
+
+      <div className="flex items-center justify-between p-5">
+        <div>
+          <div className="text-base font-semibold text-zinc-950">{name}</div>
+          <div className="mt-1 text-sm font-medium text-zinc-600">
+            {formatINR(basePricePaise)}
+          </div>
+        </div>
+
+        {canCustomize ? (
+          <Link
+            to={`/product/${id}`}
+            className="rounded-full bg-gradient-to-r from-yellow-500 to-amber-600 px-4 py-2 text-xs font-semibold text-white shadow transition hover:scale-105"
+          >
+            Customize
+          </Link>
+        ) : (
+          <span className="rounded-full bg-zinc-100 px-4 py-2 text-xs font-semibold text-zinc-500">
+            Unavailable
+          </span>
+        )}
       </div>
     </motion.div>
   )
 }
-
-  <><h2 className="text-2xl font-bold text-center text-zinc-950">
-  Why Choose Us
-</h2><div className="mt-10 grid gap-6 md:grid-cols-3">
-    {[
-      {
-        title: 'Premium Materials',
-        desc: 'High-quality wood, glass, and finish for long-lasting frames',
-      },
-      {
-        title: 'Custom Design',
-        desc: 'Personalize your frames exactly how you want',
-      },
-      {
-        title: 'Fast Delivery',
-        desc: 'Quick processing and safe doorstep delivery',
-      },
-    ].map((item) => (
-      <div
-        key={item.title}
-        className="rounded-2xl border border-zinc-200 p-6 text-center hover:shadow-lg transition"
-      >
-        <h3 className="font-semibold text-lg text-zinc-950">
-          {item.title}
-        </h3>
-        <p className="mt-2 text-sm text-zinc-600">{item.desc}</p>
-      </div>
-    ))}
-  </div></>

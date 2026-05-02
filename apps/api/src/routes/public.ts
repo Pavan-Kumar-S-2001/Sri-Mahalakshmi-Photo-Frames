@@ -18,10 +18,37 @@ publicRouter.get('/track-orders', async (req, res) => {
       id: true,
       status: true,
       paymentStatus: true,
+      payableNowPaise: true,
+      advancePaidPaise: true,
+      balancePaymentStatus: true,
+      balancePaymentMethod: true,
+      balancePaidPaise: true,
       totalPaise: true,
       createdAt: true,
     },
   })
 
   res.json({ orders })
+})
+
+publicRouter.get('/receipt/:id', async (req, res) => {
+  const order = await prisma.order.findUnique({
+    where: { id: req.params.id },
+    include: {
+      items: {
+        include: {
+          product: true,
+        },
+      },
+    },
+  })
+
+  if (!order) {
+    return res.status(404).json({ error: 'NOT_FOUND' })
+  }
+
+  res.json({
+    order,
+    remainingDuePaise: Math.max(0, order.totalPaise - order.advancePaidPaise - order.balancePaidPaise),
+  })
 })
